@@ -84,10 +84,13 @@
            backup=yes
   with_items: '{{swagger_docs}}'
 
-- name: Place index.html and assets on apache directory
+- name: Place index.html on apache directory
   tags: swagger-index
-  copy: src=var/www/html/ dest=/var/www/html/
-  notify: restart apache
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: restart apache 
+
 
 - include: apache_config.yml
 
